@@ -36,7 +36,7 @@ namespace Recipe.Models
                 entity.HasKey(e => e.IngredientId)
                     .HasName("PK__Ingredie__BEAEB25AF59F733E");
 
-                entity.Property(e => e.IngredientId).ValueGeneratedNever();
+                entity.Property(e => e.IngredientId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.IngredientAmount)
                     .HasMaxLength(20)
@@ -57,7 +57,7 @@ namespace Recipe.Models
                 entity.HasKey(e => e.RecipeId)
                     .HasName("PK__Recipes__FDD988B02F32FFD7");
 
-                entity.Property(e => e.RecipeId).ValueGeneratedNever();
+                entity.Property(e => e.RecipeId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.RecipeDescription)
                     .HasMaxLength(255)
@@ -78,7 +78,7 @@ namespace Recipe.Models
                 entity.HasKey(e => e.StepId)
                     .HasName("PK__Steps__2434335752018F14");
 
-                entity.Property(e => e.StepId).ValueGeneratedNever();
+                entity.Property(e => e.StepId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.StepDescription)
                     .HasMaxLength(255)
@@ -95,7 +95,7 @@ namespace Recipe.Models
                 entity.HasKey(e => e.UserId)
                     .HasName("PK__Users__1788CC4CB50B52E6");
 
-                entity.Property(e => e.UserId).ValueGeneratedNever();
+                entity.Property(e => e.UserId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(255)

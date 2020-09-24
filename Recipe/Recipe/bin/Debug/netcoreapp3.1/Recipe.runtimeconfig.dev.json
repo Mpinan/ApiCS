@@ -2,7 +2,8 @@
   "runtimeOptions": {
     "additionalProbingPaths": [
       "C:\\Users\\Mario\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Mario\\.nuget\\packages"
+      "C:\\Users\\Mario\\.nuget\\packages",
+      "C:\\Microsoft\\Xamarin\\NuGet"
     ]
   }
 }

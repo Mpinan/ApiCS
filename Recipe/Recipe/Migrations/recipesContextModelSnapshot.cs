@@ -22,7 +22,9 @@ namespace Recipe.Migrations
             modelBuilder.Entity("Recipe.Models.Ingredient", b =>
                 {
                     b.Property<int>("IngredientId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("IngredientAmount")
                         .HasColumnType("varchar(20)")
@@ -48,7 +50,9 @@ namespace Recipe.Migrations
             modelBuilder.Entity("Recipe.Models.Recipe", b =>
                 {
                     b.Property<int>("RecipeId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("RecipeDescription")
                         .HasColumnType("varchar(255)")
@@ -74,7 +78,9 @@ namespace Recipe.Migrations
             modelBuilder.Entity("Recipe.Models.Step", b =>
                 {
                     b.Property<int>("StepId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("RecipeId")
                         .HasColumnType("int");
@@ -95,7 +101,9 @@ namespace Recipe.Migrations
             modelBuilder.Entity("Recipe.Models.User", b =>
                 {
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
                         .HasColumnType("varchar(255)")

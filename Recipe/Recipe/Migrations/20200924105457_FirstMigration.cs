@@ -2,7 +2,7 @@
 
 namespace Recipe.Migrations
 {
-    public partial class UserIdNullable : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,7 +10,8 @@ namespace Recipe.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(unicode: false, maxLength: 20, nullable: true),
                     Email = table.Column<string>(unicode: false, maxLength: 255, nullable: true),
                     UserPassword = table.Column<string>(unicode: false, maxLength: 255, nullable: true)
@@ -24,7 +25,8 @@ namespace Recipe.Migrations
                 name: "Recipes",
                 columns: table => new
                 {
-                    RecipeId = table.Column<int>(nullable: false),
+                    RecipeId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
                     RecipeName = table.Column<string>(unicode: false, maxLength: 20, nullable: true),
                     RecipeDescription = table.Column<string>(unicode: false, maxLength: 255, nullable: true)
@@ -44,7 +46,8 @@ namespace Recipe.Migrations
                 name: "Ingredients",
                 columns: table => new
                 {
-                    IngredientId = table.Column<int>(nullable: false),
+                    IngredientId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RecipeId = table.Column<int>(nullable: true),
                     IngredientName = table.Column<string>(unicode: false, maxLength: 20, nullable: true),
                     IngredientAmount = table.Column<string>(unicode: false, maxLength: 20, nullable: true)
@@ -64,7 +67,8 @@ namespace Recipe.Migrations
                 name: "Steps",
                 columns: table => new
                 {
-                    StepId = table.Column<int>(nullable: false),
+                    StepId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RecipeId = table.Column<int>(nullable: true),
                     StepDescription = table.Column<string>(unicode: false, maxLength: 255, nullable: true)
                 },
