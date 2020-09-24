@@ -25,6 +25,7 @@ public class LoginController : ControllerBase
         public LoginController(IConfiguration config)
         {
             _config = config;
+            
         }
 
         //User Log in
@@ -54,19 +55,17 @@ public class LoginController : ControllerBase
         }
         string GenerateJWTToken(User userInfo)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt: SecretKey"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            //var claims = new[]
-//            {
-//new Claim(JwtRegisteredClaimNames.Sub, userInfo.UserName),
-//new Claim("fullName", userInfo.FullName.ToString()),
-//new Claim("role",userInfo.UserRole),
-//new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-//};
+            var claims = new[]
+            {
+            new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+};
             var token = new JwtSecurityToken(
-            issuer: _config["Jwt: Issuer"],
-            audience: _config["Jwt: Audience"],
-            //claims: claims,
+            issuer: _config["Jwt:Issuer"],
+            audience: _config["Jwt:Audience"],
+            claims: claims,
             expires: DateTime.Now.AddMinutes(30),
             signingCredentials: credentials
             );
