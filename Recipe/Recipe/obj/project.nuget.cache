@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "pLLwzsYSwfBj0elRJxf0zB5KAQ3+fNgkDQ7Kz3fTe39YtCXcFdjUxMeX39N5+Uy076ZxVYkx9wriAeWQD4jgyg==",
+  "dgSpecHash": "Nia+jwxVF+jSavxLBgTUiwePsCNyDo612Mb8Mdf7Wiv2vQR+ySHAmkKmeDk2B/EG6NAO3SG6eFkRBjq/HG18YA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Mario\\Desktop\\projects\\ApiCS\\Recipe\\Recipe\\Recipe.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Mario\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.8\\microsoft.aspnetcore.authentication.jwtbearer.3.1.8.nupkg.sha512",
     "C:\\Users\\Mario\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Mario\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
     "C:\\Users\\Mario\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\3.1.0\\microsoft.aspnetcore.razor.language.3.1.0.nupkg.sha512",
