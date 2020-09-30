@@ -20,6 +20,7 @@ public class LoginController : ControllerBase
 
     {
         recipesContext db = new recipesContext();
+        private Helper _helper = new Helper();
         private readonly IConfiguration _config;
 
         public LoginController(IConfiguration config)
@@ -50,7 +51,10 @@ public class LoginController : ControllerBase
         }
         User AuthenticateUser(User loginCredentials)
         {
-            var user = db.Users.Where(x => x.Username == loginCredentials.Username && x.UserPassword == loginCredentials.UserPassword).FirstOrDefault();
+            var userCheck = db.Users.Where(user => user.Username == loginCredentials.Username).FirstOrDefault();
+            var decryptedPassword = _helper.DecryptCipherTextToPlainText(userCheck.UserPassword);
+
+            var user = db.Users.Where(x => x.Username == loginCredentials.Username && loginCredentials.UserPassword == decryptedPassword).FirstOrDefault();
             return user;
         }
         string GenerateJWTToken(User userInfo)
