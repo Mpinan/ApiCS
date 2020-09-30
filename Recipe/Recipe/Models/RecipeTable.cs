@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Recipe.Models
 {
-    public partial class Recipe
+    public partial class RecipeTable
     {
-        public Recipe()
+        public RecipeTable()
         {
             Ingredients = new HashSet<Ingredient>();
             Steps = new HashSet<Step>();
         }
 
-        public int RecipeId { get; set; }
+        public int RecipeTableId { get; set; }
         public int UserId { get; set; }
         public string RecipeName { get; set; }
         public string RecipeDescription { get; set; }

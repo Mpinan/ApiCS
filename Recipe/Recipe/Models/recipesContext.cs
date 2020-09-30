@@ -16,7 +16,7 @@ namespace Recipe.Models
         }
 
         public virtual DbSet<Ingredient> Ingredients { get; set; }
-        public virtual DbSet<Recipe> Recipes { get; set; }
+        public virtual DbSet<RecipeTable> RecipeTables { get; set; }
         public virtual DbSet<Step> Steps { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -46,18 +46,18 @@ namespace Recipe.Models
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Recipe)
+                entity.HasOne(d => d.RecipeTable)
                     .WithMany(p => p.Ingredients)
-                    .HasForeignKey(d => d.RecipeId)
+                    .HasForeignKey(d => d.RecipeTableId)
                     .HasConstraintName("FK__Ingredien__Recip__286302EC");
             });
 
-            modelBuilder.Entity<Recipe>(entity =>
+            modelBuilder.Entity<RecipeTable>(entity =>
             {
-                entity.HasKey(e => e.RecipeId)
+                entity.HasKey(e => e.RecipeTableId)
                     .HasName("PK__Recipes__FDD988B02F32FFD7");
 
-                entity.Property(e => e.RecipeId).ValueGeneratedOnAdd();
+                entity.Property(e => e.RecipeTableId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.RecipeDescription)
                     .HasMaxLength(255)
@@ -68,7 +68,7 @@ namespace Recipe.Models
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.Recipes)
+                    .WithMany(p => p.RecipeTables)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__Recipes__UserId__25869641");
             });
@@ -84,9 +84,9 @@ namespace Recipe.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Recipe)
+                entity.HasOne(d => d.RecipeTable)
                     .WithMany(p => p.Steps)
-                    .HasForeignKey(d => d.RecipeId)
+                    .HasForeignKey(d => d.RecipeTableId)
                     .HasConstraintName("FK__Steps__RecipeId__2B3F6F97");
             });
 

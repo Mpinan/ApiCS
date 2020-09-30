@@ -7,7 +7,7 @@ namespace Recipe.Models
     {
         public User()
         {
-            Recipes = new HashSet<Recipe>();
+            RecipeTables = new HashSet<RecipeTable>();
         }
 
         public int UserId { get; set; }
@@ -15,6 +15,6 @@ namespace Recipe.Models
         public string Email { get; set; }
         public string UserPassword { get; set; }
 
-        public virtual ICollection<Recipe> Recipes { get; set; }
+        public virtual ICollection<RecipeTable> RecipeTables { get; set; }
     }
 }

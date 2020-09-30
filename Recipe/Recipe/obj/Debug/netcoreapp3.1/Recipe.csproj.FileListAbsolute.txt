@@ -151,5 +151,8 @@ C:\Users\Mario\Desktop\projects\ApiCS\Recipe\Recipe\bin\Debug\netcoreapp3.1\tr\M
 C:\Users\Mario\Desktop\projects\ApiCS\Recipe\Recipe\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Mario\Desktop\projects\ApiCS\Recipe\Recipe\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Mario\Desktop\projects\ApiCS\Recipe\Recipe\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Mario\Desktop\projects\ApiCS\Recipe\Recipe\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Mario\Desktop\projects\ApiCS\Recipe\Recipe\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Mario\Desktop\projects\ApiCS\Recipe\Recipe\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\Mario\Desktop\projects\ApiCS\Recipe\Recipe\obj\Debug\netcoreapp3.1\Recipe.csproj.CoreCompileInputs.cache
 C:\Users\Mario\Desktop\projects\ApiCS\Recipe\Recipe\obj\Debug\netcoreapp3.1\Recipe.MvcApplicationPartsAssemblyInfo.cache
