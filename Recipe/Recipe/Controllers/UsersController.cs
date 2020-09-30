@@ -14,6 +14,7 @@ namespace Recipe.Controllers
     public class UsersController : ControllerBase
     {
         private readonly recipesContext _context;
+        private Helper _helper = new Helper();
 
         public UsersController(recipesContext context)
         {
@@ -79,21 +80,19 @@ namespace Recipe.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            _context.Users.Add(user);
-            try
+        
+            var userCheck = _context.Users.Where(u => u.Email == user.Email).FirstOrDefault();
+            var encriptedPassword = _helper.EncryptPlainTextToCipherText(user.UserPassword);
+            user.UserPassword = encriptedPassword;
+
+            if (userCheck == null)
             {
+                _context.Users.Add(user);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            else
             {
-                if (UserExists(user.UserId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest();
             }
 
             return CreatedAtAction("GetUser", new { id = user.UserId }, user);

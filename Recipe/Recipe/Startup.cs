@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Recipe.Models;
 
@@ -43,13 +44,14 @@ namespace Recipe
                             ValidateAudience = true,
                             ValidateLifetime = true,
                             ValidateIssuerSigningKey = true,
+                            
                             ValidIssuer = Configuration["Jwt: Issuer"],
                             ValidAudience = Configuration["Jwt: Audience"],
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt: SecretKey"])),
                             ClockSkew = TimeSpan.Zero
                         };
                 });
-
+            IdentityModelEventSource.ShowPII = true;
             services.AddAuthorization(config =>
             {
                 config.AddPolicy(Policie.Admin, Policie.AdminPolicy());
