@@ -33,20 +33,14 @@ namespace Recipe.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Object>> GetUser(int id)
         {
-            var userRecipe = from user in _context.Users
-                             where user.UserId == id
-                             join recipeTable in _context.RecipeTables on user.UserId equals recipeTable.UserId
-                             join ingredients in _context.Ingredients on recipeTable.RecipeTableId equals ingredients.RecipeTableId
-                             join steps in _context.Steps on recipeTable.RecipeTableId equals steps.StepId
-                             select recipeTable;
-            var userRecipeObj = (object)userRecipe;
+            var userRecipe = await _context.Users.Include(u => u.RecipeTables).FirstOrDefaultAsync(u => u.UserId == id);
 
             if (userRecipe == null)
             {
                 return NotFound();
             }
 
-            return userRecipeObj;
+            return userRecipe;
         }
 
         // PUT: api/Users/5

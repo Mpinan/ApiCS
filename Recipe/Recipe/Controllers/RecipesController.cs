@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using Recipe.Models;
 
 namespace Recipe.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RecipesController : ControllerBase
@@ -32,7 +34,7 @@ namespace Recipe.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RecipeTable>> GetRecipe(int id)
         {
-            var recipe = await _context.RecipeTables.FindAsync(id);
+            var recipe = await _context.RecipeTables.Include(r => r.Ingredients).Include(r => r.Steps).FirstOrDefaultAsync(r => r.RecipeTableId == id);
 
             if (recipe == null)
             {
@@ -80,6 +82,7 @@ namespace Recipe.Controllers
         [HttpPost]
         public async Task<ActionResult<RecipeTable>> PostRecipe(RecipeTable recipe)
         {
+
             _context.RecipeTables.Add(recipe);
             await _context.SaveChangesAsync();
 
