@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mario\\Desktop\\projects\\ApiCS\\Recipe\\Recipe\\Recipe.csproj": {}
+    "C:\\Users\\xiajt\\Desktop\\ApiCS\\Recipe\\Recipe\\Recipe.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mario\\Desktop\\projects\\ApiCS\\Recipe\\Recipe\\Recipe.csproj": {
+    "C:\\Users\\xiajt\\Desktop\\ApiCS\\Recipe\\Recipe\\Recipe.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mario\\Desktop\\projects\\ApiCS\\Recipe\\Recipe\\Recipe.csproj",
+        "projectUniqueName": "C:\\Users\\xiajt\\Desktop\\ApiCS\\Recipe\\Recipe\\Recipe.csproj",
         "projectName": "Recipe",
-        "projectPath": "C:\\Users\\Mario\\Desktop\\projects\\ApiCS\\Recipe\\Recipe\\Recipe.csproj",
-        "packagesPath": "C:\\Users\\Mario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mario\\Desktop\\projects\\ApiCS\\Recipe\\Recipe\\obj\\",
+        "projectPath": "C:\\Users\\xiajt\\Desktop\\ApiCS\\Recipe\\Recipe\\Recipe.csproj",
+        "packagesPath": "C:\\Users\\xiajt\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\xiajt\\Desktop\\ApiCS\\Recipe\\Recipe\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Mario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\xiajt\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

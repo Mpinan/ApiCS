@@ -31,10 +31,8 @@ namespace Recipe
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<recipesContext>(options => options.UseSqlServer("Data Source = (localdb)\\mssqllocaldb;Initial Catalog = recipes;"));
-            services.AddControllers();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -53,13 +51,14 @@ namespace Recipe
                             ClockSkew = TimeSpan.Zero
                         };
                 });
-            IdentityModelEventSource.ShowPII = true;
-            services.AddAuthorization(config =>
-            {
-                config.AddPolicy(Policie.Admin, Policie.AdminPolicy());
-                config.AddPolicy(Policie.User, Policie.UserPolicy());
-            });
 
+            IdentityModelEventSource.ShowPII = true;
+
+            //services.AddAuthorization(config =>
+            //{
+            //    config.AddPolicy(Policie.Admin, Policie.AdminPolicy());
+            //    config.AddPolicy(Policie.User, Policie.UserPolicy());
+            //});
         }
 
 
@@ -74,6 +73,8 @@ namespace Recipe
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            //app.UseAuthentication();
 
             app.UseAuthorization();
 

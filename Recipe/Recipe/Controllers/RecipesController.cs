@@ -10,7 +10,7 @@ using Recipe.Models;
 
 namespace Recipe.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class RecipesController : ControllerBase
@@ -23,6 +23,7 @@ namespace Recipe.Controllers
         }
 
         // GET: api/Recipes
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecipeTable>>> GetRecipes()
         {
