@@ -1,87 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Recipe.Models;
 
-
-namespace RecipesSharer
+namespace JWTAuthenticationExample.Controllers
 {
-    public class Startup
+    [ApiController]
+    [Route("[controller]")]
+    public class LoginController : ControllerBase
     {
-        public Startup(IConfiguration configuration)
+        private readonly IConfiguration _config;
+        private readonly recipesContext _context;
+
+        private Helper _helper = new Helper();
+
+        public LoginController(IConfiguration config, recipesContext context)
         {
-            Configuration = configuration;
+            _context = context;
+            _config = config;
         }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult Login([FromBody] User login)
         {
-            services.AddDbContext<recipesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("recipes")));
-            //services.AddControllers();
-            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+            IActionResult response = Unauthorized();
+            User user = AuthenticateUser(login);
+            if (user != null)
             {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
+                var tokenString = GenerateJWTToken(user);
+                response = Ok(new
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
-
-            IdentityModelEventSource.ShowPII = true;
-
-            //services.AddAuthorization(config =>
-            //{
-            //    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
-            //    config.AddPolicy(Policies.User, Policies.UserPolicy());
-            //});
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+                    token = tokenString,
+                    userDetails = user,
+                });
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            return response;
+        }
+        User AuthenticateUser(User loginCredentials)
+        {
+            var encryptedPassword = _context.Users.Where(x => x.Username == loginCredentials.Username).Select(x => x.UserPassword).SingleOrDefault();
+            var decryptedPassword = _helper.DecryptCipherTextToPlainText(encryptedPassword);
+            User user = _context.Users.Where(x => x.Username == loginCredentials.Username && decryptedPassword == loginCredentials.UserPassword).FirstOrDefault();
+            if (user == null)
             {
-                endpoints.MapControllers();
-            });
+                BadRequest();
+            }
+            return user;
+        }
+        string GenerateJWTToken(User userInfo)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
+                new Claim("Username", userInfo.Username.ToString()),
+
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+            var token = new JwtSecurityToken(
+            issuer: _config["Jwt:Issuer"],
+            audience: _config["Jwt:Audience"],
+            claims: claims,
+            expires: DateTime.Now.AddMinutes(30),
+            signingCredentials: credentials
+            );
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

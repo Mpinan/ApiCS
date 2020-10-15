@@ -17,7 +17,8 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Recipe.Models;
 
-namespace Recipe
+
+namespace RecipesSharer
 {
     public class Startup
     {
@@ -31,36 +32,36 @@ namespace Recipe
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<recipesContext>(options => options.UseSqlServer("Data Source = (localdb)\\mssqllocaldb;Initial Catalog = recipes;"));
+
+            //services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
-                        options.RequireHttpsMetadata = false;
-                        options.SaveToken = true;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuer = true,
-                            ValidateAudience = true,
-                            ValidateLifetime = true,
-                            ValidateIssuerSigningKey = true,
-                            
-                            ValidIssuer = Configuration["Jwt: Issuer"],
-                            ValidAudience = Configuration["Jwt: Audience"],
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt: SecretKey"])),
-                            ClockSkew = TimeSpan.Zero
-                        };
-                });
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
 
             IdentityModelEventSource.ShowPII = true;
 
             //services.AddAuthorization(config =>
             //{
-            //    config.AddPolicy(Policie.Admin, Policie.AdminPolicy());
-            //    config.AddPolicy(Policie.User, Policie.UserPolicy());
+            //    config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+            //    config.AddPolicy(Policies.User, Policies.UserPolicy());
             //});
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -74,7 +75,7 @@ namespace Recipe
 
             app.UseRouting();
 
-            //app.UseAuthentication();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

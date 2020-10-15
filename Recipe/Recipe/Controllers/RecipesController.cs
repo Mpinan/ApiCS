@@ -10,7 +10,7 @@ using Recipe.Models;
 
 namespace Recipe.Controllers
 {
-    
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class RecipesController : ControllerBase
