@@ -10,7 +10,7 @@ using Recipe.Models;
 
 namespace Recipe.Controllers
 {
-    [Authorize]
+  
     [Route("api/[controller]")]
     [ApiController]
     public class RecipesController : ControllerBase
@@ -80,6 +80,7 @@ namespace Recipe.Controllers
         // POST: api/Recipes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<RecipeTable>> PostRecipe(RecipeTable recipe)
         {
